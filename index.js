@@ -4,11 +4,19 @@
 // To connect with your mongoDB database
 require("dotenv").config();
 const mongoose = require("mongoose");
-mongoose.connect(process.env.MONGODB_URI, {
-  dbName: "superheroes",
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+
+mongoose
+  .connect(process.env.MONGODB_URI, {
+    dbName: "superheroes",
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT);
+    console.log(`App listen at port ${PORT}...`);
+  });
+
 // Define a schema for the collection
 const heroSchema = new mongoose.Schema({
   Name: String,
@@ -142,7 +150,3 @@ const shutdown = () => {
 
 process.on("SIGINT", shutdown);
 process.on("SIGTERM", shutdown);
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT);
-console.log(`App listen at port ${PORT}...`);
