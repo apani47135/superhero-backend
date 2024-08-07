@@ -2,15 +2,13 @@
 // Filename - backend/index.js
 
 // To connect with your mongoDB database
+require("dotenv").config();
 const mongoose = require("mongoose");
-mongoose.connect(
-  "mongodb+srv://apani47135:ZCuGrr0tATtSDc2g@cluster0.wyuoe.mongodb.net/",
-  {
-    dbName: "superheroes",
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect(process.env.MONGODB_URI, {
+  dbName: "superheroes",
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 // Define a schema for the collection
 const heroSchema = new mongoose.Schema({
   Name: String,
